@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px;
+  background-color: #ddd1ad;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1b840b;
+}
+
+.header-right {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  padding: 8px;
+}
+
+button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+}
+
+.register-btn {
+  background-color: #1b840b;
+  color: white;
+}
+
+.login-btn,
+.register-btn {
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+}
+
+.login-btn {
+  background-color: white;
+  color: black;
+}

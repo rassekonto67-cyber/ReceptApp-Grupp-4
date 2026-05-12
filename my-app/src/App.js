@@ -1,5 +1,4 @@
-import Navbar from "./components/Navbar";
-import "./App.css";
+import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -10,7 +9,7 @@ import Profile from "./pages/Profile";
 function App() {
   return (
     <div>
-      <Navbar />
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
