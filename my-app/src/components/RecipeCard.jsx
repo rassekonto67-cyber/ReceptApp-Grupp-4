@@ -1,14 +1,41 @@
-function RecipeCard(props) {
+// @ts-nocheck
+import "./RecipeCard.css";
+
+function RecipeCard() {
+
   return (
-    <article>
-      <img src={props.image} alt={props.title} />
+    <main className="recipe-card">
+
+      <header>
+        <h1>Lax med citron</h1>
+
+        <p>45 min</p>
+      </header>
+
+      <img
+        src="https://images.unsplash.com/photo-1467003909585-2f8a72700288"
+        alt="Lax med citron"
+      />
 
       <section>
-        <h2>{props.title}</h2>
-        <h4>{props.category}</h4>
-        <p>{props.description}</p>
+        <h2>Ingredienser</h2>
+
+        <ul>
+          <li>Lax</li>
+          <li>Citron</li>
+          <li>Potatis</li>
+        </ul>
       </section>
-    </article>
+
+      <section>
+        <h2>Beskrivning</h2>
+
+        <p>
+          Stek laxen och servera med potatis.
+        </p>
+      </section>
+
+    </main>
   );
 }
 
