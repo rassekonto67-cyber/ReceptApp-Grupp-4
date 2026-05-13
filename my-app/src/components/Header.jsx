@@ -1,28 +1,35 @@
 // @ts-ignore
 import "./Header.css";
 
+import { Link } from "react-router-dom";
+
 function Header() {
   return (
     <header className="header">
-      <div className="logo">
+      <section className="logo">
         <h2>logga</h2>
-      </div>
+      </section>
 
+      
       <nav className="nav-links">
-        <a href="/">Hem</a>
-        <a href="/">Mina recept</a>
-        <a href="/">Receptsamling</a>
+        <Link to="/">Hem</Link>
+
+        <Link to="/profile">Mina recept</Link>
+
+        <Link to="/recipe">Receptsamling</Link>
       </nav>
 
-      <div className="header-right">
+      <section className="header-right">
         <input type="text" placeholder="Sök recept..." />
-        <a className="login-btn" href="/login">
+
+        <Link className="login-btn" to="/login">
           Logga in
-        </a>
-        <a className="register-btn" href="/register">
+        </Link>
+
+        <Link className="register-btn" to="/register">
           Registrera
-        </a>
-      </div>
+        </Link>
+      </section>
     </header>
   );
 }
