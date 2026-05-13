@@ -1,0 +1,107 @@
+.home-page {
+  padding: 3rem;
+
+  background: #d9cfab;
+
+  min-height: 100vh;
+}
+
+.hero-section {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 4rem;
+
+  margin-bottom: 4rem;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  margin-bottom: 2rem;
+}
+
+.hero-text button {
+  border: none;
+
+  padding: 0.8rem 1.2rem;
+
+  border-radius: 8px;
+
+  background: green;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.hero-image {
+  width: 350px;
+
+  border-radius: 20px;
+
+  object-fit: cover;
+}
+
+.categories-section {
+  margin-bottom: 4rem;
+}
+
+.categories {
+  display: flex;
+
+  gap: 1rem;
+
+  flex-wrap: wrap;
+
+  margin-top: 1rem;
+}
+
+.categories button {
+  border: none;
+
+  padding: 0.7rem 1rem;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  background: white;
+}
+
+.popular-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 2rem;
+}
+
+.popular-header button {
+  border: none;
+
+  padding: 0.7rem 1rem;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  background: white;
+}
+
+.recipe-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  gap: 2rem;
+}
