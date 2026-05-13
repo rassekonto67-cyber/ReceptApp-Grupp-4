@@ -1,29 +1,24 @@
 // @ts-nocheck
 import "./Home.css";
 import Previewcard from "../components/Previewcard";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
     <main className="home-page">
-
       <section className="hero-section">
-
         <section className="hero-text">
-
           <h1>
             Hitta och dela
             <br />
             dina favoritrecept
           </h1>
 
-          <p>
-            Upptäck nya recept eller dela dina egna favoriter.
-          </p>
+          <p>Upptäck nya recept eller dela dina egna favoriter.</p>
 
-          <button>
-            lägg upp recept
-          </button>
-
+          <Link to="/login" className="create-recipe-btn">
+            Skapa recept
+          </Link>
         </section>
 
         <img
@@ -31,37 +26,30 @@ function Home() {
           alt="Pasta"
           className="hero-image"
         />
-
       </section>
 
       <section className="categories-section">
-
         <h2>Kategorier</h2>
 
         <nav className="categories">
-
           <button>Alla</button>
           <button>Frukost</button>
           <button>Lunch</button>
           <button>Middag</button>
           <button>Efterrätt</button>
-
         </nav>
-
       </section>
 
       <section className="popular-section">
-
         <header className="popular-header">
-
           <h2>Populära recept</h2>
 
-          <button>Visa alla</button>
-
+          <Link to="/recipe" className="show-all-btn">
+            Visa alla
+          </Link>
         </header>
 
         <section className="recipe-grid">
-
           <Previewcard
             title="Krämig pasta"
             image="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9"
@@ -79,11 +67,8 @@ function Home() {
             image="https://images.unsplash.com/photo-1547592180-85f173990554"
             time="40 min"
           />
-
         </section>
-
       </section>
-
     </main>
   );
 }

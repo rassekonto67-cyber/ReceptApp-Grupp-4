@@ -105,3 +105,26 @@
 
   gap: 2rem;
 }
+
+.show-all-btn {
+  text-decoration: none;
+
+  background: white;
+
+  padding: 0.7rem 1rem;
+
+  border-radius: 20px;
+
+  color: black;
+}
+.create-recipe-btn {
+  text-decoration: none;
+
+  background: green;
+
+  color: white;
+
+  padding: 0.8rem 1.2rem;
+
+  border-radius: 8px;
+}
