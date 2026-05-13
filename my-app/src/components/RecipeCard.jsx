@@ -1,39 +1,57 @@
 // @ts-nocheck
+
+import { useState } from "react";
+import ComentCard from "./ComentCard";
 import "./RecipeCard.css";
 
 function RecipeCard() {
+  const [showComments, setShowComments] = useState(false);
+
   return (
     <main className="recipe-card">
+      <section className="recipe-top">
+        <section className="recipe-info">
+          <header className="recipe-title">
+            <h1>TITEL</h1>
 
-      <header>
-        <h1>Lax med citron</h1>
+            <p>⏱ 45 min</p>
+          </header>
 
-        <p>45 min</p>
-      </header>
+          <ul className="ingredients-list">
+            <li>Ingrediens</li>
+            <li>Ingrediens</li>
+            <li>Ingrediens</li>
+            <li>Ingrediens</li>
+            <li>Ingrediens</li>
+          </ul>
+        </section>
 
-      <img
-        src="https://images.unsplash.com/photo-1467003909585-2f8a72700288"
-        alt="Lax med citron"
-      />
-
-      <section>
-        <h2>Ingredienser</h2>
-
-        <ul>
-          <li>Lax</li>
-          <li>Citron</li>
-          <li>Potatis</li>
-        </ul>
+        <section className="recipe-image-container">
+          <img
+            src="https://images.unsplash.com/photo-1467003909585-2f8a72700288"
+            alt="recipe"
+            className="recipe-image"
+          />
+        </section>
       </section>
 
-      <section>
-        <h2>Beskrivning</h2>
+      <section className="description-box">
+        <h2>beskrivning</h2>
 
-        <p>
-          Stek laxen och servera med potatis.
-        </p>
+        <p>Här kommer receptbeskrivningen senare.</p>
       </section>
 
+      <footer className="recipe-buttons">
+        <button onClick={() => setShowComments(!showComments)}>
+          kommentarer 35 +
+        </button>
+
+        <button onClick={() => setShowComments(true)}>kommentera</button>
+
+        <button>recept av: profil</button>
+      </footer>
+
+      {showComments && <ComentCard />}
     </main>
   );
 }
