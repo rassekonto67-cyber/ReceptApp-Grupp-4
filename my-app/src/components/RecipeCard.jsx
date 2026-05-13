@@ -2,7 +2,6 @@
 import "./RecipeCard.css";
 
 function RecipeCard() {
-
   return (
     <main className="recipe-card">
 

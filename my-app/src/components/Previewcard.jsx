@@ -7,7 +7,10 @@ function Previewcard({ title, image, time }) {
   const navigate = useNavigate();
 
   return (
-    <article className="preview-card">
+    <article
+      className="preview-card"
+      onClick={() => navigate("/recipecard")}
+    >
 
       <img
         src={image}
@@ -20,12 +23,6 @@ function Previewcard({ title, image, time }) {
         <h3>{title}</h3>
 
         <p>{time}</p>
-
-        <button
-          onClick={() => navigate("/recipecard")}
-        >
-          Visa recept
-        </button>
 
       </section>
 
