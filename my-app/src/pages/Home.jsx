@@ -1,50 +1,50 @@
 // @ts-nocheck
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Home.css";
 import Previewcard from "../components/Previewcard";
 import { Link } from "react-router-dom";
 
 function Home() {
-  const recipes = [
-    {
-      id: 1,
-      title: "Pannkakor",
-      category: "Frukost",
-      comments: 50,
-      image: "https://via.placeholder.com/300",
-      time: "20 min",
-    },
-
-    {
-      id: 2,
-      title: "Pasta Carbonara",
-      category: "Middag",
-      comments: 12,
-      image: "https://via.placeholder.com/300",
-      time: "40 min",
-    },
-
-    {
-      id: 3,
-      title: "Smoothie Bowl",
-      category: "Frukost",
-      comments: 85,
-      image: "https://via.placeholder.com/300",
-      time: "10 min",
-    },
-  ];
-
+  const [recipes, setRecipes] = useState([]); // Initialiseras som tom array
   const [selectedCategory, setSelectedCategory] = useState("Alla");
-  const filteredRecipes = recipes
+  const [loading, setLoading] = useState(true);
 
+  // 1. Hämta data (Endast en useEffect)
+  useEffect(() => {
+    fetch("http://localhost:1337/api/recipes?populate=*")
+      .then((res) => res.json())
+      .then((resData) => {
+        // Strapi v4 returnerar data i formatet: { data: [...] }
+        if (resData && resData.data) {
+          console.log("Här är min data från Strapi:", resData); // <--- Denna rad är guld värd!
+          setRecipes(resData.data);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching recipes:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  // 2. Filtrering och sortering med säkerhet för null
+  // Vi använder (recipes || []) för att vara helt säkra på att .filter inte kraschar
+  const filteredRecipes = (recipes || [])
     .filter((recipe) => {
       if (selectedCategory === "Alla") {
         return true;
       }
-
-      return recipe.category === selectedCategory;
+      
+      // OBS: Om du använder Strapi ligger kategorin troligen i recipe.attributes.category
+      const category = recipe.attributes?.category || recipe.category;
+      return category === selectedCategory;
     })
-    .sort((a, b) => b.comments - a.comments);
+    .sort((a, b) => {
+      // Sortering på kommentarer (säkerställer att vi inte jämför undefined)
+      const commentsA = a.attributes?.comments || a.comments || 0;
+      const commentsB = b.attributes?.comments || b.comments || 0;
+      return commentsB - commentsA;
+    });
 
   return (
     <main className="home-page">
@@ -55,9 +55,7 @@ function Home() {
             <br />
             dina favoritrecept
           </h1>
-
           <p>Upptäck nya recept eller dela dina egna favoriter.</p>
-
           <Link to="/login" className="create-recipe-btn">
             Skapa recept
           </Link>
@@ -72,34 +70,50 @@ function Home() {
 
       <section className="categories-section">
         <h2>Kategorier</h2>
-
         <nav className="categories">
-          <button onClick={() => setSelectedCategory("Alla")}>Alla</button>
-          <button onClick={() => setSelectedCategory("Frukost")}>Frukost</button>
-          <button onClick={() => setSelectedCategory("Lunch")}>Lunch</button>
-          <button onClick={() => setSelectedCategory("Middag")}>Middag</button>
-          <button onClick={() => setSelectedCategory("Efterrätt")}>Efterrätt</button>
+          {["Alla", "Frukost", "Lunch", "Middag", "Efterrätt"].map((cat) => (
+            <button 
+              key={cat} 
+              className={selectedCategory === cat ? "active" : ""} 
+              onClick={() => setSelectedCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
         </nav>
       </section>
 
       <section className="popular-section">
         <header className="popular-header">
           <h2>Populära recept</h2>
-
           <Link to="/recipe" className="show-all-btn">
             Visa alla
           </Link>
         </header>
 
         <section className="recipe-grid">
-      {filteredRecipes.map((recipe) => (
-            <Previewcard
-              key={recipe.id}
-              title={recipe.title}
-              image={recipe.image}
-              time={recipe.time}
-            />
-          ))}
+          {loading ? (
+            <p>Laddar recept...</p>
+          ) : filteredRecipes.length > 0 ? (
+            filteredRecipes.map((recipe) => {
+              // Här mappar vi ut data. Om Strapi används ligger värden i .attributes
+              const item = recipe.attributes || recipe;
+              
+              return (
+                <Previewcard
+                  key={recipe.id}
+                  title={item.Name}
+                  description={item.Description}
+                  ingredients={item.Ingredienser}
+                  image={item.Bild}
+                  time={item.Tid}
+                  category={item.Kategori}
+                />
+              );
+            })
+          ) : (
+            <p>Inga recept hittades i denna kategori.</p>
+          )}
         </section>
       </section>
     </main>
