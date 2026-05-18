@@ -1,17 +1,16 @@
+// @ts-ignore
 import "./Login.css";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-  
 
 export default function Login() {
-
   const formInitialState = {
-    identifier: '', 
-    password: ''
+    identifier: "",
+    password: "",
   };
 
   const [formData, setFormData] = useState(formInitialState);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   function updateFormData(event) {
@@ -21,21 +20,22 @@ export default function Login() {
 
   async function sendForm(event) {
     event.preventDefault();
-    setError('');
-    const response = await fetch('http://localhost:1337/api/auth/local', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
+    setError("");
+    const response = await fetch("http://localhost:1337/api/auth/local", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
     const data = await response.json();
     if (!response.ok) {
-      setError(data.error?.message || 'Login failed');
+      setError(data.error?.message || "Login failed");
       return;
     }
-    localStorage.user = JSON.stringify(data);
-    navigate('/');
+    localStorage.setItem("token", data.jwt);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    navigate("/");
+    window.location.reload();
   }
-
 
   return (
     <div className="login-page">
@@ -43,9 +43,7 @@ export default function Login() {
         <h1>Logga in</h1>
 
         <div className="form-group">
-          <label htmlFor="identifier">
-            Email eller användarnamn
-          </label>
+          <label htmlFor="identifier">Email eller användarnamn</label>
 
           <input
             id="identifier"
@@ -71,14 +69,11 @@ export default function Login() {
         </div>
 
         <button type="submit">Logga in</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
         <Link to="/register">
-          <button>
-            Skapa nytt konto
-          </button>
+          <button>Skapa nytt konto</button>
         </Link>
-
       </form>
     </div>
   );
