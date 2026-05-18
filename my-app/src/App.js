@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Recipe from "./pages/Recipe";
 import RecipeCard from "./components/RecipeCard";
+import CreateRecipe from "./pages/CreateRecipe";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/recipe" element={<Recipe />} />
         <Route path="/recipecard" element={<RecipeCard />} />
+        <Route path="/create-recipe" element={<CreateRecipe />}
+/>
       </Routes>
     </div>
   );
